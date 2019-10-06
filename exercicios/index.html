@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <time>Document</time>
+    </head>
+    <body>
+        <h1>TITULO</h1>
+        <P>PARAGRAFO</P>
+        <div>DADOS</div>
+
+        <script>
+            console.log(this) ;// é windows
+
+            let exibeConteudo = function(){
+                console.log(this) ;
+                alert(this.textContent);
+            };
+
+            /*
+            não funciona
+            let exibeConteudo = () => {
+                console.log(this) ;
+                alert(this.textContent);
+            };
+            */
+
+            $ = document.querySelector.bind(document);
+            $('h1').addEventListener('click', exibeConteudo);
+            $('p').addEventListener('click', exibeConteudo);
+            $('div').addEventListener('click', exibeConteudo);
+
+            // ----------
+
+            class SistemaImpressao{
+                constructor(){
+                    this._codigo = 2;
+                }
+
+                imprime(nomes){
+                    nomes.forEach( nome => {
+                        console.log(this);
+                        console.log(`${this._codigo}: ${nome}`);
+                    });
+
+                    /*
+                    não funciona
+                    nomes.forEach(function(nome) {
+                        console.log(this);
+                        console.log(`${this._codigo}: ${nome}`);
+                    });
+                    */
+                }
+            }
+            
+            let nomes = ['Flavio', 'Nico', 'Douglas'];
+            let si = new SistemaImpressao();
+            si.imprime(nomes);
+
+        </script>
+    </body>
+</html>
