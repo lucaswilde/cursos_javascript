@@ -1,6 +1,7 @@
 class NegociacaoController {
 
     constructor(){
+        this._ordemAtual = ''; // quando a página for carregada, não tem critério. Só passa a ter quando ele começa a clicar nas colunas
         let $ = document.querySelector.bind(document);
         this._inputData = $('#data');
         this._inputQuantidade = $('#quantidade');
@@ -9,7 +10,7 @@ class NegociacaoController {
         this._listaNegociacoes = new Bind(
             new ListaNegociacoes(),
             new NegociacoesView($('#negociacoesView')),
-            'adiciona', 'esvazia');
+            'adiciona', 'esvazia', 'ordena', 'inverteOrdem');
                             
         this._mensagem = new Bind(
             new Mensagem(),
@@ -58,6 +59,16 @@ class NegociacaoController {
           this._mensagem.texto = 'Negociações do período importadas com sucesso';
         })
         .catch(error => this._mensagem.texto = error);
+    }
+
+    ordena(coluna){
+        if(this._ordemAtual == coluna){
+            this._listaNegociacoes.inverteOrdem();
+        }else{
+            // objeto[propriedade] 
+            this._listaNegociacoes.ordena((a, b) => a[coluna] - b[coluna]);
+        }
+        this._ordemAtual = coluna;
     }
 
 }
