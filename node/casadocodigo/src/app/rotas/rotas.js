@@ -1,5 +1,6 @@
 // pega a instancia do banco de dados
 const db = require('../../config/database');
+const LivroDao = require('../infra/livro-dao');
 
 module.exports = (app) => {
     app.get('/', function(req, resp) {
@@ -16,7 +17,8 @@ module.exports = (app) => {
     });
     
     app.get('/livros', function(req, resp) {
-        db.all('select * from livros', function(erro, resultados){
+        const livroDao = new LivroDao(db);
+        livroDao.lista(function(erro, resultados){
             resp.marko(
                 require('../views/livros/lista/lista.marko'),
                 {
