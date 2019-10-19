@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+    </head>
+    <body>
+        <script>
+            
+            var lista = [10,1, 5, 9, 8, 12, 15];
+            lista.sort(); // [1, 10, 12, 15, 5, 8, 9]    
+
+            function comparaNumeros(a,b){
+                if(a == b) return 0;
+                if(a > b) return 1;
+                if(a < b) return -1;
+            }
+
+            console.log(lista.sort(comparaNumeros));
+        </script>
+    </body>
+</html>
