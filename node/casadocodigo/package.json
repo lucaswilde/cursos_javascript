@@ -1,13 +1,13 @@
 {
   "name": "casadocodigo",
   "version": "1.0.0",
-  "description": "Livraria Casa do Código",
+  "description": "Livraria Casa do Codigo",
   "main": "server.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "nodemon server.js --ignore *.marko.js"
   },
-  "author": "Aluno Lucas",
+  "author": "Gabriel Leite",
   "license": "ISC",
   "dependencies": {
     "body-parser": "1.18.3",
