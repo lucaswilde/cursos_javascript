@@ -32,5 +32,25 @@ app.use(methodOverride(function (req, res) {
 const rotas = require('../app/rotas/rotas.js');
 rotas(app);
 
+// Os middlewares de tratamento de erro precisam vir necessariamente ao final de toda configuração.
+// o Node leva em consideração a ordem de declaração das rotas e dos middlewares e os executa em sequência.
+// como nenhuma rota foi encontrada no rotas.js esse middleware será ativado
+// como testar: http://localhost:3000/livros/abcd
+app.use(function(req, resp, next){
+  return resp.status(404).marko(
+    require('../app/base/erros/404.marko')
+  );
+});
+
+// rota foi encontrada no rota.js porem houve um erro
+// precisa do parametro erro para que o Express diferencie um middleware padrão de um middleware de erro
+// como testar: http://localhost:3000/livros/form/ssss
+// ssss deveria ser um numero (id do livro)
+app.use(function(erro, req, resp, next){
+  return resp.status(500).marko(
+    require('../app/base/erros/500.marko')
+  );
+});
+
 // retorna o app para quem fizer um require
 module.exports = app;
