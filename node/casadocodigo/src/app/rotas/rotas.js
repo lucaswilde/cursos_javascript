@@ -41,8 +41,8 @@ module.exports = (app) => {
     });
 
     app.post('/livros', [
-            check('titulo').isLength({min: 5}),
-            check('preco').isCurrency()
+            check('titulo').isLength({min: 5}).withMessage('Título deve conter no mínimo 5 caracteres!'),
+            check('preco').isCurrency().withMessage('O Preço deve ser um valor monetário!')
         ],function(req, resp) {
             console.log(req.body);
             const livroDao = new LivroDao(db);
@@ -53,7 +53,8 @@ module.exports = (app) => {
                 return resp.marko(
                     require("../views/livros/form/form.marko"),
                     {
-                        livro: {}
+                        livro: {},
+                        errosValidacao: erros.array()
                     }
                 );
             }
