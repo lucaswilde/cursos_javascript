@@ -47,6 +47,7 @@ app.use(function(req, resp, next){
 // como testar: http://localhost:3000/livros/form/ssss
 // ssss deveria ser um numero (id do livro)
 app.use(function(erro, req, resp, next){
+  console.log('custom-express, erro: [' + erro + ']');
   return resp.status(500).marko(
     require('../app/base/erros/500.marko')
   );
