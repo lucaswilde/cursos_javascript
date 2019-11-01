@@ -38,7 +38,7 @@ rotas(app);
 // como testar: http://localhost:3000/livros/abcd
 app.use(function(req, resp, next){
   return resp.status(404).marko(
-    require('../app/base/erros/404.marko')
+    require('../app/views/base/erros/404.marko')
   );
 });
 
@@ -49,7 +49,7 @@ app.use(function(req, resp, next){
 app.use(function(erro, req, resp, next){
   console.log('custom-express, erro: [' + erro + ']');
   return resp.status(500).marko(
-    require('../app/base/erros/500.marko')
+    require('../app/views/base/erros/500.marko')
   );
 });
 
