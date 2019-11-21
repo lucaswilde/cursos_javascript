@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Aprendendo IndexDB</title>
+</head>
+<body>
+    <script src="js/app/models/Negociacao.js"></script>
+    <script>
+        var connection;
+
+        // o segundo parametro indica a versão do banco
+        // ou seja, o evento onupgradeneeded só será executado se a versão existente for menor que esse parametro
+        // por exemplo, se um novo object store for adicionado então a versão precisa ser atualizada
+        var openRequest = window.indexedDB.open('aluraframe', 3);
+
+        openRequest.onupgradeneeded = e => {
+            console.log('Cria ou altera um banco ja existe');
+
+            let minhaConnection = e.target.result;
+            if(minhaConnection.objectStoreNames.contains('negociacoes')){
+                minhaConnection.deleteObjectStore('negociacoes');
+            }
+            minhaConnection.createObjectStore('negociacoes', {autoIncrement: true});
+        }
+
+        openRequest.onsuccess = e => {
+            console.log('Conexão obtida com sucesso');
+            connection = e.target.result;
+        }
+
+        openRequest.onerror = e => {
+            console.log(e.target.error);
+        }
+
+        function adiciona(){
+            let transaction = connection.transaction(['negociacoes'], 'readwrite');
+            let store = transaction.objectStore('negociacoes');
+            let negociacao = new Negociacao(new Date(), 200, 1);
+            let request = store.add(negociacao);
+            request.onsuccess = e => {
+                console.log('Negociação incluída com sucesso');
+            }
+
+            request.onerror = e => {
+                console.log('Não foi possível incluir a negociação');
+            }
+        }
+
+        function listaTodos(){
+            let transaction = connection.transaction(['negociacoes'], 'readwrite');
+            let store = transaction.objectStore('negociacoes');
+            let negociacoes = [];
+
+            let cursor = store.openCursor();
+
+            cursor.onsuccess = e => {
+                // ponteiro
+                let atual = e.target.result;
+
+                if(atual){
+                    let dado = atual.value;
+                    negociacoes.push(new Negociacao(dado._data, dado._quantidade, dado._valor));
+                    // move o ponteiro para proxima possição, ou seja, chama o onsuccess de novo
+                    atual.continue();
+                }else{
+                    // quando não há mais objects em nossa store.
+                    // Isso significa que já terminados de popular negociacoes
+                     console.log(negociacoes);
+                }
+            }
+
+            cursor.onerror = e => {
+                console.log('Error: ' + e.target.error.name);
+            }
+        }
+
+
+    </script>
+</body>
+</html>
