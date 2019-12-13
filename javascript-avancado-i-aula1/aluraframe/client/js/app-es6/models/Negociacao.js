@@ -1,4 +1,4 @@
-class Negociacao {
+export class Negociacao {
     constructor(data, quantidade, valor){
         // underscore é uma convenção indicando ao progrador que o atributo deve ser imutavel
         this._quantidade = quantidade;
