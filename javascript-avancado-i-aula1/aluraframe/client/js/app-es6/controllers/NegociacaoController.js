@@ -7,7 +7,7 @@ import {DateHelper} from '../helpers/DateHelper';
 import {Bind} from '../helpers/Bind';
 import {Negociacao} from '../models/Negociacao';
 
-export class NegociacaoController {
+class NegociacaoController {
 
     constructor(){
         this._ordemAtual = ''; // quando a página for carregada, não tem critério. Só passa a ter quando ele começa a clicar nas colunas
@@ -105,4 +105,10 @@ export class NegociacaoController {
         this._ordemAtual = coluna;
     }
 
+}
+
+// Criando singleton para modulo, que podera ser usado por toda a aplicação
+let negociacaoController = new NegociacaoController();
+export function currentInstance() {
+    return negociacaoController;
 }
