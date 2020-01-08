@@ -10,22 +10,19 @@ class App extends Component{
       {name: "Fabica", age: "40"},
       {name: "Pirulito", age: "25"},
     ],
-    otherState: "some other value"
+    otherState: "some other value",
+    showPersons: false
   };
 
-  switchStateHandler = (newName) => {
-    // DON'T DO THIS: this.state.persons[1].name = "Fabiane";
+  togglePersonsHandler = () => {
+    const showPersons = this.state.showPersons;
     this.setState({
-      persons: [
-        {name: "Lucas", age: "30"},
-        {name: "Pirulito", age: "40"},
-        {name: newName, age: "25"},
-      ]
+      showPersons: !showPersons
     });
   };
 
   nameChangedHandler = (event) =>{
-    this.switchStateHandler(event.target.value);
+    this.togglePersonsHandler(event.target.value);
     
   }
 
@@ -43,15 +40,19 @@ class App extends Component{
           <h1>Hi, I'm a React App</h1>
           <button
             style={style}
-           onClick={() => this.switchStateHandler('Fabine Turela')}>Switch Name</button>
-          <Person name={this.state.persons[0].name} 
-              age={this.state.persons[0].age}></Person>
-          <Person name={this.state.persons[1].name} 
-              age={this.state.persons[1].age}></Person>
-          <Person name={this.state.persons[2].name} 
-              age={this.state.persons[2].age}
-              click={this.switchStateHandler.bind(this, 'Fabiiiiica!!!')}
-              changed={this.nameChangedHandler}>My hobbies: Racing</Person>
+            onClick={this.togglePersonsHandler}>Toggle Persons</button>
+          {this.state.showPersons ?
+            <div>
+              <Person name={this.state.persons[0].name} 
+                  age={this.state.persons[0].age}></Person>
+              <Person name={this.state.persons[1].name} 
+                  age={this.state.persons[1].age}></Person>
+              <Person name={this.state.persons[2].name} 
+                  age={this.state.persons[2].age}
+                  click={this.togglePersonsHandler.bind(this, 'Fabiiiiica!!!')}
+                  changed={this.nameChangedHandler}>My hobbies: Racing</Person>
+            </div> : null
+          }
         </div>
       )
   }
