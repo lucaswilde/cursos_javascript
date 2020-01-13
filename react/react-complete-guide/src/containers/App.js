@@ -17,7 +17,8 @@ class App extends Component{
       {id: '3', name: "Pirulito", age: "25"},
     ],
     otherState: "some other value",
-    showPersons: false
+    showPersons: false,
+    showCockpit: true
   };
 
   componentDidMount(){
@@ -74,18 +75,23 @@ class App extends Component{
       persons = (
             <Persons 
               persons={this.state.persons}
-              clicked={this.deletePersonHandler}/>
+              clicked={this.deletePersonHandler}
+              changed={this.nameChangedHandler}/>
       );
     }
 
     return(
         <div className="App">
-          <Cockpit
-            title={this.props.appTitle}
-            showPersons={this.state.showPersons}
-            persons={this.state.persons}
-            clicked={this.togglePersonsHandler}
-          />
+          <button onClick={() => this.setState({showCockpit: false})}>Remove Cockpit</button>
+          {this.state.showCockpit ?
+            <Cockpit
+              title={this.props.appTitle}
+              showPersons={this.state.showPersons}
+              persons={this.state.persons}
+              clicked={this.togglePersonsHandler}
+            />
+            : null
+          }
           {persons}
         </div>
       )

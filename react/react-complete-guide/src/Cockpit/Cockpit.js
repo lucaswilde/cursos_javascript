@@ -4,7 +4,17 @@ import classes from './Cockpit.css';
 const Cockpit = (props) => {
 
     useEffect(() => {
-        console.log('[cockpit.js] useEffect');
+        console.log('[Cockpit.js] useEffect');
+        return () => {
+            console.log('[Cockpit.js] cleanUp works in useEffect');
+        }
+    }, []);
+
+    useEffect(() => {
+        console.log('[Cockpit.js] 2th useEffect');
+        return () => {
+            console.log('[Cockpit.js] 2th cleanUp works in useEffect');
+        }
     });
 
     const assignedClasses = [];
