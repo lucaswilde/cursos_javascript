@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import './App.css';
-import Apps from '../components/Apps/Apps';
+import Persons from '../components/Persons/Persons';
 import Cockpit from '../Cockpit/Cockpit';
 
 class App extends Component{
@@ -11,13 +11,13 @@ class App extends Component{
   }
 
   state = {
-    Apps: [
+    persons: [
       {id: '1', name: "Lucas", age: "30"},
       {id: '2', name: "Fabica", age: "40"},
       {id: '3', name: "Pirulito", age: "25"},
     ],
     otherState: "some other value",
-    showApps: false
+    showPersons: false
   };
 
   componentDidMount(){
@@ -38,44 +38,43 @@ class App extends Component{
     return state;
   }
 
-  toggleAppsHandler = () => {
-    const showApps = this.state.showApps;
+  togglePersonsHandler = () => {
+    const showPersons = this.state.showPersons;
     this.setState({
-      showApps: !showApps
+      showPersons: !showPersons
     });
   };
 
   nameChangedHandler = (event, id) =>{
-    const AppIndex = this.state.Apps.findIndex(p => {
+    const personIndex = this.state.persons.findIndex(p => {
       return p.id === id;
     });
 
-    const App = {
-        ...this.state.Apps[AppIndex]
+    const person = {
+        ...this.state.persons[personIndex]
       };
     
-    App.name = event.target.value; 
+    person.name = event.target.value; 
 
-    const Apps = [...this.state.Apps];
-    Apps[AppIndex] = App;
-    this.setState({Apps: Apps});
+    const persons = [...this.state.persons];
+    persons[personIndex] = person;
+    this.setState({persons: persons});
   }
 
-  deleteAppHandler = (AppIndex) =>{
-    const Apps = [...this.state.Apps];
-    Apps.splice(AppIndex, 1);
-    this.setState({Apps: Apps});
+  deletePersonHandler = (personIndex) =>{
+    const persons = [...this.state.persons];
+    persons.splice(personIndex, 1);
+    this.setState({persons: persons});
   }
 
   render(){
     console.log('[App.js] render');
-    let Apps = null;
-    if(this.state.showApps){
-      Apps = (
-            <Apps 
-              Apps={this.state.Apps}
-              clicked={this.deleteAppHandler}
-              changed={this.nameChangedHandler}/>
+    let persons = null;
+    if(this.state.showPersons){
+      persons = (
+            <Persons 
+              persons={this.state.persons}
+              clicked={this.deletePersonHandler}/>
       );
     }
 
@@ -83,11 +82,11 @@ class App extends Component{
         <div className="App">
           <Cockpit
             title={this.props.appTitle}
-            showApps={this.state.showApps}
-            Apps={this.state.Apps}
-            clicked={this.toggleAppsHandler}
+            showPersons={this.state.showPersons}
+            persons={this.state.persons}
+            clicked={this.togglePersonsHandler}
           />
-          {Apps}
+          {persons}
         </div>
       )
   }
