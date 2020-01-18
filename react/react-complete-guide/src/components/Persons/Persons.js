@@ -1,18 +1,12 @@
 import React, { PureComponent } from 'react';
 import Person from './Person/Person';
+import PropTypes from 'prop-types';
 
 class Persons extends PureComponent {
 
     componentWillUnmount() {
         console.log('[Persons.js] componentWillUnmount');
     }
-
-    // shouldComponentUpdate(nextProps, nextState) {
-    //     console.log('[Persons.js] shouldComponentUpdate');
-    //     return (nextProps.persons !== this.props.persons 
-    //         || nextProps.changed !== this.props.changed 
-    //         || nextProps.clicked !== this.props.clicked);
-    // }
 
     render() {
         console.log('[Persons.js] redering...');
@@ -26,6 +20,13 @@ class Persons extends PureComponent {
             />
         });
     }
+};
+
+Person.propTypes = {
+    click: PropTypes.func,
+    name: PropTypes.string,
+    age: PropTypes.number,
+    changed: PropTypes.func
 };
 
 export default Persons;
