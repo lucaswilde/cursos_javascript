@@ -1,10 +1,13 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useRef } from 'react';
 import classes from './Cockpit.css';
 
 const Cockpit = (props) => {
+    const toggleBtnRef = useRef(null);
 
     useEffect(() => {
         console.log('[Cockpit.js] useEffect');
+        toggleBtnRef.current.click();
+
         return () => {
             console.log('[Cockpit.js] cleanUp works in useEffect');
         }
@@ -35,8 +38,10 @@ const Cockpit = (props) => {
             <h1>Hi, I'm a React App</h1>
             <p className={assignedClasses.join('')}>{props.title}</p>
             <button
+                ref={toggleBtnRef}
                 className={btnClass}
-                onClick={props.clicked}>Toggle Persons</button>
+                onClick={props.clicked}>Toggle Persons
+            </button>
         </div>
     )
 };
