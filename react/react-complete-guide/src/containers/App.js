@@ -21,7 +21,8 @@ class App extends Component{
     otherState: "some other value",
     showPersons: false,
     showCockpit: true,
-    changeCounter: 0
+    changeCounter: 0,
+    isAuthenticated: false
   };
 
   componentDidMount(){
@@ -76,6 +77,10 @@ class App extends Component{
     this.setState({persons: persons});
   }
 
+  authenticateHandler = () => {
+    this.setState({isAuthenticated: true});
+  }
+
   render(){
     console.log('[App.js] render');
     let persons = null;
@@ -84,7 +89,8 @@ class App extends Component{
             <Persons 
               persons={this.state.persons}
               clicked={this.deletePersonHandler}
-              changed={this.nameChangedHandler}/>
+              changed={this.nameChangedHandler}
+              auth={this.state.isAuthenticated}/>
       );
     }
 
@@ -97,6 +103,7 @@ class App extends Component{
               showPersons={this.state.showPersons}
               personsLength={this.state.persons.length}
               clicked={this.togglePersonsHandler}
+              authenticate={this.authenticateHandler}
             />
             : null
           }

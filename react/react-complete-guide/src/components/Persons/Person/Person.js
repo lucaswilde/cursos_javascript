@@ -33,6 +33,7 @@ class Person extends Component {
         console.log('[Person.js] redering...');
         return (
             <Aux>
+                {this.props.auth ? <p>Authenticated</p> : <p>Please login</p>}
                 <p onClick={this.props.click}>I'm {this.props.name}, I'm {this.props.age} years old.</p>
                 <p onClick={this.props.click}>{this.props.children}</p>
                 <input 
