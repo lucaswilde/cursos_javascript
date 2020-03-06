@@ -1,3 +1,4 @@
-node/casadocodigo/node_modules/
-javascript-avancado-i-aula1/aluraframe/client/node_modules/
-javascript-avancado-i-aula1/aluraframe/server/node_modules/
+node/casadocodigo/node_modules
+javascript-avancado-i-aula1/aluraframe/client/node_modules
+javascript-avancado-i-aula1/aluraframe/server/node_modules
+react/http--01-starting-setup/node_modules
