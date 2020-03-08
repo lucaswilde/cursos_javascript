@@ -12,10 +12,9 @@ class FullPost extends Component {
     componentDidUpdate(){
         if(this.props.id){
             if( !this.state.loadedPost || ( this.state.loadedPost && this.state.loadedPost.id !== this.props.id )) {
-                Axios.get("https://jsonplaceholder.typicode.com/posts/" + this.props.id)
+                Axios.get("https://jsonplaceholder.typicode.com/postssss/" + this.props.id)
                     .then(response => {
                         console.log(response);
-                        
                         return this.setState({loadedPost: response.data});
                     })
             }
@@ -38,7 +37,7 @@ class FullPost extends Component {
             post = (
                 <div className="FullPost">
                     <h1>{this.state.loadedPost.title}</h1>
-                    <p>{this.state.loadedPost.content}</p>
+                    <p>{this.state.loadedPost.body}</p>
                     <div className="Edit">
                         <button onClick={this.deletePostHandler} className="Delete">Delete</button>
                     </div>
