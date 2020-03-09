@@ -4,6 +4,7 @@ import Burger from "../../components/Burger/Burger.js";
 import BuildControls from "../../components/Burger/BuildControls/BuildControls";
 import Modal from "../../components/UI/Modal/Modal";
 import OrderSummary from "../../components/Burger/OrderSummary/OrderSummury";
+import axios from '../../axios-orders';
 
 // constante global deve ser em maiusculo
 const INGREDIENT_PRICES = {
@@ -43,7 +44,24 @@ class BurgerBuilder extends Component{
     }
 
     purchaseContinueHandler = () => {
-        alert("You continue!");
+        const order = {
+            ingredients: this.state.ingredients,
+            price: this.state.totalPrice,
+            customer: {
+                name: 'Lucas Wilde',
+                address: {
+                    street: 'Test street',
+                    zipCode: '1234',
+                    country: 'Brazil'
+                },
+                email: 'teste@test.com'
+            },
+            deliveryMethod: 'Fastest'
+        }
+
+        axios.post('/orders.json', order)
+            .then(response => console.log(response))
+            .catch(error => console.log(error));
     }
 
     render(){
