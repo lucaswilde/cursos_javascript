@@ -1,13 +1,9 @@
 import * as actionTypes from '../actions/actionTypes';
 
 const initialState = {
-    ingredients: {
-        salad: 0,
-        cheese: 0,
-        meat: 0,
-        bacon: 0
-    },
-    totalPrice: 4
+    ingredients: null,
+    totalPrice: 4,
+    error: false
 }
 
 // constante global deve ser em maiusculo
@@ -29,7 +25,7 @@ const reducer = (state = initialState, action) => {
                 }
                 , totalPrice: state.totalPrice + INGREDIENT_PRICES[action.ingredientName]
             }
-            case actionTypes.REMOVE_INGRIDIENT : 
+        case actionTypes.REMOVE_INGRIDIENT : 
             return {
                 ...state,
                 ingredients: {
@@ -37,6 +33,18 @@ const reducer = (state = initialState, action) => {
                     [action.ingredientName]: state.ingredients[action.ingredientName] - 1
                 }
                 , totalPrice: state.totalPrice + INGREDIENT_PRICES[action.ingredientName]
+            }
+        case actionTypes.SET_INGRIDIENTS : 
+            return {
+                ...state,
+                ingredients: action.ingredients,
+                totalPrice: 4,
+                error: false
+            }
+        case actionTypes.FETCH_INGRIDIENTS_FAILED : 
+            return {
+                ...state,
+                error: true
             }
         default :
             return state;
